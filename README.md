@@ -37,3 +37,72 @@ Through this project, I introduced colleagues to the following concepts:
    ```bash
    git clone https://github.com/your-username/LLM-wrapper.git
    cd LLM-wrapper
+2. **Set up your API key** Export your OpenAI key as an environment variable.
+   (you will have to pay for your own OpenAI key to use any sort of AI, once you have got the key put it in the quotes)
+   ```bash
+   export OPENAI_API_KEY='your_api_key'
+
+## Usage
+
+### 1. Initialize the LLM Wrapper
+
+The `LLMWrapper` lets you select between the chat and completion models. Initialize it by specifying the model type.
+
+```python
+from llm_wrapper import LLMWrapper, ChatMessage
+```
+# Initialize LLM wrapper with your choice of model ("chat" or "completion")
+llm_wrapper = LLMWrapper(api_key="your_api_key", model_type="chat")  # Use "chat" for chat model, "completion" for completion model
+
+### 2. Generate Responses Based on Model Choice
+
+#### Using the Chat Model
+
+If `model_type="chat"` is chosen, you can use chat-based interactions:
+
+```python
+# Define a list of messages for a conversation
+messages = [ChatMessage(role="user", content="Hello, how can you help me today?")]
+
+# Generate a response from the chat model
+response = llm_wrapper.generate_response(messages)
+print(response.choices[0].message.content)
+```
+
+if `model_type="chat"` is chosen, you can use chat-based interactions:
+
+```python
+# Define a prompt for a completion task
+prompt = "Explain the concept of machine learning in simple terms."
+
+# Generate a response from the completion model
+response = llm_wrapper.generate_response(prompt)
+print(response.choices[0].text.strip())
+```
+
+### 3. Configure Model and Memory Options
+
+```python
+# Switch between models
+llm_wrapper.set_model("gpt-4")  # Example of changing the model dynamically
+
+# Enable or disable memory for chat model
+llm_wrapper.set_memory_usage(use_memory=True)
+```
+
+### 4. Manage Long Conversations and Prioritize Messages
+
+```python
+# Prioritize messages if certain ones need emphasis in the memory
+prioritized_messages = llm_wrapper.prioritize_messages(messages)
+
+# Split long conversations into chunks based on token limits
+chunks = llm_wrapper.split_long_conversation(messages, max_tokens_per_chunk=500)
+for chunk in chunks:
+    response = llm_wrapper.generate_response(chunk)
+    print(response.choices[0].message.content)
+```
+
+This is a workshop presented by Farman Ali for ACM Education on LLMs and Wrapper Methods. Please contact me if you need any support.
+
+   

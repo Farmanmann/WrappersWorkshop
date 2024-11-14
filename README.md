@@ -50,9 +50,10 @@ The `LLMWrapper` lets you select between the chat and completion models. Initial
 
 ```python
 from llm_wrapper import LLMWrapper, ChatMessage
-```
+
 # Initialize LLM wrapper with your choice of model ("chat" or "completion")
 llm_wrapper = LLMWrapper(api_key="your_api_key", model_type="chat")  # Use "chat" for chat model, "completion" for completion model
+```
 
 ### 2. Generate Responses Based on Model Choice
 
